@@ -27,6 +27,13 @@ set incsearch
 set guicursor=
 " enable folding
 set foldmethod=syntax
+" show counter for search results
+" https://stackoverflow.com/questions/49297579/how-to-count-search-results-in-vim
+" https://vimhelp.org/options.txt.html#%27shortmess%27
+set shortmess-=S
+
+" Map the leader key to a comma.
+let mapleader = ','
 
 " remap Esc
 inoremap jk <Esc>
@@ -79,6 +86,23 @@ let g:indentLine_setConceal=0
 " NERDTree
 map <F4> :NERDTreeToggle<CR>"]
 
+" NERD Commenter
+filetype plugin on
+" Create default mappings
+let g:NERDCreateDefaultMappings = 1
+
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+" tagbar conf
+nmap <F8> :TagbarToggle<CR>
+
 call plug#begin()
 
 " for YAML
@@ -95,5 +119,13 @@ Plug 'itchyny/lightline.vim'
 
 " NERDTree
 Plug 'preservim/nerdtree'
+
+" NERD Commenter
+Plug 'preservim/nerdcommenter'
+
+" tagbar
+" to use install ctags
+" https://github.com/universal-ctags/ctags
+Plug 'preservim/tagbar'
 
 call plug#end()
