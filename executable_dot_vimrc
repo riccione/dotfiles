@@ -26,7 +26,9 @@ set noswapfile
 set incsearch
 set guicursor=
 " enable folding
-set foldmethod=syntax
+"set foldmethod=syntax
+autocmd FileType rust setlocal foldmethod=syntax
+autocmd FileType python setlocal foldmethod=indent
 " show counter for search results
 " https://stackoverflow.com/questions/49297579/how-to-count-search-results-in-vim
 " https://vimhelp.org/options.txt.html#%27shortmess%27
@@ -78,10 +80,16 @@ autocmd Filetype yaml setlocal ts=2 sts=2 sw=2 expandtab
 let g:indentLine_char = '⦙'
 
 " for markdown files
-autocmd BufNewFile,BufRead *.md set filetype=markdown
-set conceallevel=0
+" autocmd BufNewFile,BufRead *.md set filetype=markdown
+"set conceallevel=0
+" autocmd FileType markdown setlocal conceallevel=0
 " line below basically disables indentLine Plugin
-let g:indentLine_setConceal=0
+augroup md
+    autocmd!
+    autocmd BufNewFile,BufRead *.md set filetype=markdown
+    autocmd FileType markdown setlocal conceallevel=0
+    autocmd BufAdd,BufRead *.md let g:indentLine_setConceal=0
+augroup end
 
 " NERDTree
 map <F4> :NERDTreeToggle<CR>"]
@@ -102,6 +110,9 @@ let g:NERDDefaultAlign = 'left'
 
 " tagbar conf
 nmap <F8> :TagbarToggle<CR>
+
+" for python
+let g:python_highlight_all = 1
 
 call plug#begin()
 
@@ -127,5 +138,8 @@ Plug 'preservim/nerdcommenter'
 " to use install ctags
 " https://github.com/universal-ctags/ctags
 Plug 'preservim/tagbar'
+
+" for python
+Plug 'vim-python/python-syntax'
 
 call plug#end()
