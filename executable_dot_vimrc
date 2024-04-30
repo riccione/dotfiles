@@ -114,6 +114,10 @@ nmap <F8> :TagbarToggle<CR>
 " for python
 let g:python_highlight_all = 1
 
+" for REST API
+autocmd BufNewFile,BufRead *.http set filetype=rest
+let g:vrc_horizontal_split=1
+
 call plug#begin()
 
 " for YAML
@@ -141,5 +145,8 @@ Plug 'preservim/tagbar'
 
 " for python
 Plug 'vim-python/python-syntax'
+
+" for REST API
+Plug 'diepm/vim-rest-console'
 
 call plug#end()
