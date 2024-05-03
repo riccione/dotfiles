@@ -147,6 +147,6 @@ Plug 'preservim/tagbar'
 Plug 'vim-python/python-syntax'
 
 " for REST API
-Plug 'diepm/vim-rest-console'
+" Plug 'diepm/vim-rest-console'
 
 call plug#end()
