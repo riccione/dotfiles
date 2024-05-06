@@ -118,7 +118,13 @@ let g:python_highlight_all = 1
 autocmd BufNewFile,BufRead *.http set filetype=rest
 let g:vrc_horizontal_split=1
 
+" for emmet-vim
+let g:user_emmet_leader_key=','
+
 call plug#begin()
+
+" for HTML
+Plug 'mattn/emmet-vim'
 
 " for YAML
 Plug 'https://github.com/Yggdroot/indentLine'
