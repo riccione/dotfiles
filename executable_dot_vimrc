@@ -73,7 +73,7 @@ set statusline+=%F
 nnoremap zz :update<cr>
 
 " exit vim only
-nnoremap QQ :q<cr>
+nnoremap EE :q<cr>
 
 " for YAML files
 autocmd Filetype yaml setlocal ts=2 sts=2 sw=2 expandtab
