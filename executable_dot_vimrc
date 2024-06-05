@@ -29,6 +29,8 @@ set guicursor=
 "set foldmethod=syntax
 autocmd FileType rust setlocal foldmethod=syntax
 autocmd FileType python setlocal foldmethod=indent
+let g:jedi#environment_path = "/usr/bin/python3"
+
 " show counter for search results
 " https://stackoverflow.com/questions/49297579/how-to-count-search-results-in-vim
 " https://vimhelp.org/options.txt.html#%27shortmess%27
@@ -151,6 +153,7 @@ Plug 'preservim/tagbar'
 
 " for python
 Plug 'vim-python/python-syntax'
+Plug 'davidhalter/jedi-vim'
 
 " for REST API
 Plug 'riccione/vim-rest-console'
