@@ -125,6 +125,9 @@ let g:user_emmet_leader_key=','
 
 call plug#begin()
 
+" go
+Plug 'fatih/vim-go'
+
 " for HTML
 Plug 'mattn/emmet-vim'
 
