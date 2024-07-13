@@ -93,6 +93,13 @@ augroup md
     autocmd BufAdd,BufRead *.md let g:indentLine_setConceal=0
 augroup end
 
+augroup json
+    autocmd!
+    autocmd BufNewFile,BufRead *.json set filetype=json
+    autocmd FileType json setlocal conceallevel=0
+    autocmd BufAdd,BufRead *.json let g:indentLine_setConceal=0
+augroup end
+
 " NERDTree
 map <F4> :NERDTreeToggle<CR>"]
 
