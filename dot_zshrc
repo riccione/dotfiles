@@ -112,6 +112,13 @@ zstyle ':vcs_info:git:*' formats '%b '
 setopt PROMPT_SUBST
 PROMPT='%F{green}%*%f %n %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
 
+# custom path
+path+=("$HOME/bin")
+path+=("$HOME/.cargo/bin")
+path+=("$HOME/.local/bin")
+path+=("$HOME/.pulumi/bin")
+export PATH
+
 # custom aliases
 alias ll='ls -l'
 alias la='ls -A'
