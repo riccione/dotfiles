@@ -130,6 +130,11 @@ let g:vrc_horizontal_split=1
 " for emmet-vim
 let g:user_emmet_leader_key=','
 
+" for ALE
+let g:ale_completion_enabled = 1
+set omnifunc=ale#completion#OmniFunc
+let g:ale_completion_autoimport = 0
+
 call plug#begin()
 
 " go
@@ -145,7 +150,7 @@ Plug 'https://github.com/Yggdroot/indentLine'
 Plug 'https://github.com/mechatroner/rainbow_csv'
 
 " for Rust
-Plug 'rust-lang/rust.vim'
+" Plug 'rust-lang/rust.vim'
 
 " for statusline
 Plug 'itchyny/lightline.vim'
@@ -162,10 +167,12 @@ Plug 'preservim/nerdcommenter'
 Plug 'preservim/tagbar'
 
 " for python
-Plug 'vim-python/python-syntax'
-Plug 'davidhalter/jedi-vim'
+" Plug 'vim-python/python-syntax'
+" Plug 'davidhalter/jedi-vim'
 
 " for REST API
 Plug 'riccione/vim-rest-console'
+
+Plug 'dense-analysis/ale'
 
 call plug#end()
