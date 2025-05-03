@@ -1,0 +1,3 @@
+# Vim plugin related files
+**/plugged/
+**/plugged/**/*

@@ -1,0 +1,21 @@
+# Ignore plugin manager directories
+plugged/
+pack/
+
+# Ignore swap, backup, and undo files
+*.swp
+*.swo
+*.bak
+*.tmp
+undo/
+swap/
+backup/
+
+# Ignore Python bytecode (if using Python plugins)
+__pycache__/
+*.pyc
+*.pyo
+
+# Optional: Ignore large session or tag files
+session/
+tags
