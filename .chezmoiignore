@@ -1,3 +1,20 @@
 # Vim plugin related files
 **/plugged/
 **/plugged/**/*
+
+# .config
+**/.config/chezmoi/
+**/.config/GIMP/
+**/.config/joplin-desktop/
+**/.config/okularrc
+**/.config/QtProject.conf
+**/.config/vlc/
+**/.config/dconf/
+**/.config/gtk-3.0/
+**/.config/keepasxc/
+**/.config/pavucontrol.ini
+**/.config/Joplin/
+**/.config/libreoffice/
+**/.config/pulse/
+**/.config/Thunar/
+**/.config/xfce4/

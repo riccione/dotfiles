@@ -1,0 +1,125 @@
+// -*- mode: json -*-
+
+{
+	"layer": "top",
+	"position": "top",
+
+	"modules-left": [
+		"sway/workspaces",
+	],
+	//"modules-center": ["sway/window"],
+	"modules-right": [
+		"tray",
+		"custom/divider",
+		"pulseaudio",
+		"custom/divider",
+		"battery",
+		"custom/divider",
+		"network",
+		"custom/divider",
+		"sway/language",
+		"custom/divider",
+		"clock",
+		"custom/divider",
+		"custom/power"
+	],
+	"custom/divider": {
+		"format": " | ",
+		"tooltip": false
+	},
+	"custom/left-arrow-dark": {
+		"format": "",
+		"tooltip": false
+	},
+	"custom/left-arrow-light": {
+		"format": "",
+		"tooltip": false
+	},
+	"custom/right-arrow-dark": {
+		"format": "",
+		"tooltip": false
+	},
+	"custom/right-arrow-light": {
+		"format": "",
+		"tooltip": false
+	},
+
+	"sway/workspaces": {
+		"disable-scroll": true,
+		"format": "{name}"
+	},
+    "clock": {
+        "format-alt": "{%d-%m-%y}"
+    },
+	"clock#1": {
+		"format": "{:%a}",
+		"tooltip": false
+	},
+	"clock#2": {
+		"format": "{:%H:%M}",
+		"tooltip": false
+	},
+	"clock#3": {
+		"format": "{:%m-%d}",
+		"tooltip": false
+	},
+
+	"pulseaudio": {
+		"format": "{icon} {volume:2}%",
+		"format-bluetooth": "{icon}  {volume}%",
+		"format-muted": "MUTE",
+		"format-icons": {
+			"headphones": "",
+			"default": [
+				"",
+				""
+			]
+		},
+		"scroll-step": 1,
+		"on-click": "pamixer -t",
+		"on-click-right": "pavucontrol"
+	},
+	"memory": {
+		"interval": 5,
+		"format": "M {}%"
+	},
+	"cpu": {
+		"interval": 5,
+		"format": "CPU {usage:2}%"
+	},
+	"battery": {
+		"states": {
+			"good": 95,
+			"warning": 30,
+			"critical": 15
+		},
+		"format": "{icon} {capacity}%",
+		"format-icons": [
+			"",
+			"",
+			"",
+			"",
+			""
+		]
+	},
+    "network": {
+        "interval": 5,
+        "format-wifi": "  {essid} ({signalStrength}%)", // Icon: wifi"
+        "format-ethernet": "  {ifname}: {ipaddr}/{cidr}", // Icon: ethernet
+        "format-disconnected": "⚠  Disconnected",
+        "tooltip-format": "{ifname}: {ipaddr}"
+    },
+	"disk": {
+		"interval": 5,
+		"format": "Disk {percentage_used:2}%",
+		"path": "/"
+	},
+	"tray": {
+		"icon-size": 20
+	},
+    "custom/power": {
+        "format":"P",
+        "on-click": "exec  ~/.config/waybar/scripts/power-menu.sh",
+        "tooltip": false,
+    }
+}
