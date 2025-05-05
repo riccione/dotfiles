@@ -209,8 +209,10 @@ bindsym $mod+r mode "resize"
 
 #
 # Status Bar:
-exec nm-applet
+exec nm-applet --indicator
 
-exec waybar
+bar {
+    swaybar_command waybar
+}
 
 include /etc/sway/config.d/*
