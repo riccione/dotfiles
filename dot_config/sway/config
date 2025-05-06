@@ -210,9 +210,15 @@ bindsym $mod+r mode "resize"
 #
 # Status Bar:
 exec nm-applet --indicator
+exec mako
 
 bar {
     swaybar_command waybar
 }
+
+bindsym $mod+Shift+g exec zsh -c 'timestamp=$(date +"%Y-%m-%d_%H-%M-%S"); \
+name=$(fuzzel --dmenu -p "Screenshot name (optional):"); \
+filename="${name:-screenshot}_$timestamp"; slurp | \
+grim -g - ~/Pictures/Screenshots/"$filename".png' && notify-send $filename.png
 
 include /etc/sway/config.d/*
