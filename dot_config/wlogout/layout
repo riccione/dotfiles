@@ -1,0 +1,36 @@
+{
+    "label" : "lock",
+    "action" : "swaylock",
+    "text" : "Lock",
+    "keybind" : "l"
+}
+{
+    "label" : "",
+    "action" : "",
+    "text" : "",
+    "keybind" : ""
+}
+{
+    "label" : "logout",
+    "action" : "loginctl terminate-user $USER",
+    "text" : "Logout",
+    "keybind" : "e"
+}
+{
+    "label" : "shutdown",
+    "action" : "systemctl poweroff",
+    "text" : "Shutdown",
+    "keybind" : "s"
+}
+{
+    "label" : "",
+    "action" : "",
+    "text" : "",
+    "keybind" : ""
+}
+{
+    "label" : "reboot",
+    "action" : "systemctl reboot",
+    "text" : "Reboot",
+    "keybind" : "r"
+}

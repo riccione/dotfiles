@@ -5,7 +5,7 @@ selected=$(printf $x | fuzzel -dmenu | awk '{print tolower($1)}')
 
 case $selected in
     lock)
-        swaylock -e -c 000000 --indicator-idle-visible;;
+        swaylock;;
     exit)
         sway exit;;
     reboot)
