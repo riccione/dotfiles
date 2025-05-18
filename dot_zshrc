@@ -142,4 +142,4 @@ alias weather="curl 'wttr.in/orlando?m'"
 alias conan='~/bin/conan/conan'
 alias upx='~/bin/upx/upx'
 alias sa='source ~/.zshrc;echo "zsh sourced"'
-alias llama='~/bin/llama.sh'
+alias llama='~/.scripts/llama.sh'
