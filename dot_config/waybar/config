@@ -19,10 +19,9 @@
 		"custom/divider",
 		"sway/language",
 		"custom/divider",
-		"clock",
-		"custom/divider",
-		"custom/power"
+		"clock"
 	],
+	//"custom/power"
 	"custom/divider": {
 		"format": " | ",
 		"tooltip": false
