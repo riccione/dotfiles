@@ -221,4 +221,4 @@ name=$(fuzzel --dmenu -p "Screenshot name (optional):"); \
 filename="${name:-screenshot}_$timestamp"; slurp | \
 grim -g - ~/Pictures/Screenshots/"$filename".png' && notify-send $filename.png
 
-include /etc/sway/config.d/*
+# include /etc/sway/config.d/*
