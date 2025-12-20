@@ -1,15 +1,37 @@
 #!/bin/bash
 
-# Usage: ./secure_decrypt.sh <encrypted_file.age> <private_key_file> <output_dir>
+# Usage: ./secure_download.sh <encrypted_file.age> <private_key_file> <output_dir>
 
 set -e
+
+usage() {
+    cat <<EOF
+Usage: $(basename "$0") [OPTIONS] <encrypted_file.age> <private_key_file> <output_dir>
+
+Decrypt an age-encrypted archive, verify hashes, and extract contents.
+
+Arguments:
+  encrypted_file.age   Encrypted archive produced by secure-archive script
+  private_key_file     age private key file
+  output_dir           Directory to extract files into
+
+Options:
+  -h                   Show this help message and exit
+
+Examples:
+  $(basename "$0") archive.tar.gz.age key.txt out/
+  $(basename "$0") secrets.age ~/.config/age/key.txt ./output
+
+EOF
+}
 
 ENCRYPTED_FILE="$1"
 PRIVATE_KEY="$2"
 OUTPUT_DIR="$3"
 
 if [[ -z "$ENCRYPTED_FILE" || -z "$PRIVATE_KEY" || -z "$OUTPUT_DIR" ]]; then
-    echo "Usage: $0 <encrypted_file.age> <private_key_file> <output_dir>"
+    echo "[!] Missing required arguments"
+    usage
     exit 1
 fi
 

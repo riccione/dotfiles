@@ -4,12 +4,50 @@
 
 set -e
 
+usage() {
+        cat <<EOF
+Usage: $(basename "$0") [OPTIONS] <input_path> <recipient_public_key_file> <output_dir>
+
+Securely archive and encrypt files using age.
+
+Arguments:
+  input_path                 File or directory to archive
+  recipient_public_key_file  age recipient public key file
+  output_dir                 Directory for output files
+
+Options:
+  -r                          Randomize output filenames (hide sensitive names)
+  -h                          Show this help message and exit
+
+Examples:
+  $(basename "$0") data/ key.pub out/
+  $(basename "$0") -r secrets/ key.pub out/
+
+EOF
+}
+
+RANDOM_NAME=false
+# Parse flags
+while getopts ":r" opt; do
+  case $opt in
+    r)
+      RANDOM_NAME=true
+      ;;
+    *)
+      echo "Usage: $0 [-r] <input_path> <recipient_public_key_file> <output_dir>"
+      exit 1
+      ;;
+  esac
+done
+shift $((OPTIND - 1))
+
 INPUT_PATH="$1"
 PUBLIC_KEY_FILE="$2"
 OUTPUT_DIR="$3"
 
 if [[ -z "$INPUT_PATH" || -z "$PUBLIC_KEY_FILE" || -z "$OUTPUT_DIR" ]]; then
-    echo "Usage: $0 <input_path> <recipient_public_key_file> <output_dir>"
+    echo "[!] Missing requred arguments"
+    usage
     exit 1
 fi
 
@@ -23,7 +61,12 @@ fi
 mkdir -p "$OUTPUT_DIR"
 
 # Determine base name
-BASENAME=$(basename "$INPUT_PATH")
+if $RANDOM_NAME; then
+    BASENAME="$(openssl rand -hex 16)"
+else
+    BASENAME="$(basename "$INPUT_PATH")"
+fi
+
 ARCHIVE_NAME="$OUTPUT_DIR/${BASENAME}.tar.gz"
 ENCRYPTED_NAME="$ARCHIVE_NAME.age"
 HASH_FILE="$OUTPUT_DIR/${BASENAME}_hashes.txt"
