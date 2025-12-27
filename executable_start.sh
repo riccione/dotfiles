@@ -1,20 +1,24 @@
 #!/bin/bash
 #
+set -euo pipefail
 
+export XDG_SESSION_TYPE=wayland
 export XDG_CURRENT_DESKTOP="sway"
 export XDG_SESSION_DESKTOP="sway"
 
-# scale
-export GDK_SCALE=1.5
-export GDK_DPI_SCALE=1.5
-export QT_AUTO_SCREEN_SCALE_FACTOR=1.5
-export QT_SCALE_FACTOR=1.5
+# Use native Wayland where possible
+export MOZ_ENABLE_WAYLAND=1
+export SDL_VIDEODRIVER=wayland
+export QT_QPA_PLATFORM=wayland
 
-export XDG_DATA_DIRS=/usr/local/share:/usr/share
+# scale: should be handled by sway config output * scale 1.x
 
 # GNOME keyring
-eval $(/usr/bin/gnome-keyring-daemon --start --components=secrets,pkcs11,ssh)
-export SSH_AUTH_SOCK
+if command -v gnome-keyring-daemon >/dev/null; then
+  eval "$(/usr/bin/gnome-keyring-daemon --start --components=secrets,ssh)"
+  export SSH_AUTH_SOCK
+fi
+
 
 # for logging add after sway '-d 2> ~/sway.log'
 exec dbus-run-session sway
