@@ -122,7 +122,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# custom aliases
+# ===== custom aliases =====
 alias ll='ls -l'
 alias la='ls -A'
 alias cp='cp -v'
@@ -145,3 +145,21 @@ alias sa='source ~/.zshrc;echo "zsh sourced"'
 alias llama='~/.scripts/llama.sh'
 alias battery='~/.scripts/battery.sh'
 alias dysk='~/bin/dysk'
+# ----- nmcli
+alias wifi-on='nmcli radio wifi on'
+alias wifi-off='nmcli radio wifi off'
+alias wifi-status='nmcli device status'
+alias wifi-scan='nmcli device wifi list'
+alias wifi-disconnect='nmcli -t -f DEVICE,TYPE,STATE device status | grep ":wifi:connected" | cut -d: -f1 | xargs -r nmcli device disconnect'
+alias wifi-saved='nmcli connection show'
+alias wifi-active='nmcli connection show --active'
+alias wifi-up='nmcli connection up'
+alias wifi-up='nmcli connection down'
+wifi-connect() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: wifi-connect <SSID>"
+    return 1
+  fi
+
+  nmcli --ask device wifi connect "$1"
+}
