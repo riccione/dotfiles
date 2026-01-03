@@ -84,6 +84,7 @@ for f in *; do
 
   # Normalize name
   base_clean="${base// /_}"
+  base_clean="$(printf '%s' "$base_clean" | sed 's/[^A-Za-z0-9._-]//g')"
 
   # Truncate base so full name <= MAX_LEN
   max_base_len=$((MAX_LEN - ${#ext}))

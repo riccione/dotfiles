@@ -33,7 +33,7 @@ default_floating_border none
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/Pictures/bg/wallhaven-8x1gdo.jpg fill
+output * bg ~/Pictures/bg/current.jpg fill
 #
 # Example configuration:
 #
@@ -211,6 +211,9 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
+
+# swaylock binding
+bindsym $mod+Ctrl+l exec swaylock
 
 #
 # Status Bar:
