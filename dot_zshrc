@@ -123,7 +123,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # ===== custom aliases =====
-alias ll='ls -l'
+alias sa='source ~/.zshrc;echo "zsh sourced"'
+alias ll='ls -lah'
 alias la='ls -A'
 alias cp='cp -v'
 alias mv='mv -v'
@@ -131,17 +132,18 @@ alias mkdir='mkdir -v'
 alias vimw='vim -u ~/.vimrc_writer'
 alias python='python3'
 alias py='python3'
-alias go123='~/dev/go/go/bin/go'
 alias update='sudo apt update'
 alias uplist='sudo apt list -u'
 alias upgrade='sudo apt upgrade'
 alias ..='cd ..'
+alias weather="curl 'wttr.in/orlando?m'"
+# ----- git
+alias gs='git status'
+# ----- bin
 alias godot='~/bin/Godot_v4.3-stable_linux.x86_64'
 alias ultimaker='~/bin/UltiMaker-Cura-5.7.2-linux-X64.AppImage'
-alias weather="curl 'wttr.in/orlando?m'"
 alias conan='~/bin/conan/conan'
 alias upx='~/bin/upx/upx'
-alias sa='source ~/.zshrc;echo "zsh sourced"'
 alias llama='~/.scripts/llama.sh'
 alias battery='~/.scripts/battery.sh'
 alias dysk='~/bin/dysk'
