@@ -139,6 +139,7 @@ alias ..='cd ..'
 alias weather="curl 'wttr.in/orlando?m'"
 # ----- git
 alias gss='git status'
+alias gsl='git log --all --graph --decorate --oneline'
 # ----- bin
 alias godot='~/bin/Godot_v4.3-stable_linux.x86_64'
 alias ultimaker='~/bin/UltiMaker-Cura-5.7.2-linux-X64.AppImage'
