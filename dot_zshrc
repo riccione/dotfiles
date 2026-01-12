@@ -147,6 +147,7 @@ alias upx='~/bin/upx/upx'
 alias llama='~/.scripts/llama.sh'
 alias battery='~/.scripts/battery.sh'
 alias dysk='~/bin/dysk'
+alias nvim='~/bin/nvim-linux-x86_64.appimage'
 # ----- nmcli
 alias wifi-on='nmcli radio wifi on'
 alias wifi-off='nmcli radio wifi off'
