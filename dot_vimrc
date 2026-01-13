@@ -77,6 +77,12 @@ nnoremap zz :update<cr>
 " exit vim only
 nnoremap EE :q<cr>
 
+" Use Tab to cycle to the next buffer
+nnoremap <Tab> :bnext<CR>
+
+" Use Shift+Tab to cycle to the previous buffer
+nnoremap <S-Tab> :bprevious<CR>
+
 " for YAML files
 autocmd Filetype yaml setlocal ts=2 sts=2 sw=2 expandtab
 let g:indentLine_char = '⦙'
