@@ -137,6 +137,7 @@ alias uplist='sudo apt list -u'
 alias upgrade='sudo apt upgrade'
 alias ..='cd ..'
 alias weather="curl 'wttr.in/orlando?m'"
+alias imv='imv-wayland'
 # ----- git
 alias gss='git status'
 alias gsl='git log --all --graph --decorate --oneline'
