@@ -168,3 +168,4 @@ wifi-connect() {
 
   nmcli --ask device wifi connect "$1"
 }
+alias chromium='chromium --disable-gpu'
