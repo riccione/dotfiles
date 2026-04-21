@@ -169,3 +169,4 @@ wifi-connect() {
   nmcli --ask device wifi connect "$1"
 }
 alias chromium='chromium --disable-gpu'
+alias timer20='~/.scripts/timer.sh 20 ~/Music/'
