@@ -37,8 +37,11 @@ get_random_mp3() {
     echo "${mp3_files[$random_index]}"
 }
 
-# Function to play audio
+# Function to play audio (synchronously - waits for completion)
+# Returns the path of the file played (if any) via global variable SELECTED_AUDIO
 play_audio() {
+    SELECTED_AUDIO=""
+    
     # No audio path provided - use system sound
     if [ -z "$AUDIO_PATH" ]; then
         system_sound
@@ -50,7 +53,7 @@ play_audio() {
         local random_mp3=$(get_random_mp3 "$AUDIO_PATH")
         
         if [ -n "$random_mp3" ]; then
-            # Play random MP3 from directory
+            SELECTED_AUDIO="$random_mp3"
             play_mp3 "$random_mp3"
         else
             echo "Warning: No MP3 files found in directory '$AUDIO_PATH'"
@@ -58,7 +61,7 @@ play_audio() {
         fi
     # Check if path is a file
     elif [ -f "$AUDIO_PATH" ]; then
-        # Play specific MP3 file
+        SELECTED_AUDIO="$AUDIO_PATH"
         play_mp3 "$AUDIO_PATH"
     else
         echo "Warning: '$AUDIO_PATH' is not a valid file or directory"
@@ -66,28 +69,30 @@ play_audio() {
     fi
 }
 
-# Function to play MP3 file
+# Function to play MP3 file (synchronously - waits for completion)
 play_mp3() {
     local mp3_file="$1"
     
     # Try different players (in order of preference)
+    # NOTE: Removed '&' so the script waits for playback to finish
     if command -v mpv &>/dev/null; then
-        mpv --no-video --really-quiet "$mp3_file" &
+        mpv --no-video --really-quiet "$mp3_file"
     elif command -v mpg123 &>/dev/null; then
-        mpg123 -q "$mp3_file" &
+        mpg123 -q "$mp3_file"
     elif command -v ffplay &>/dev/null; then
-        ffplay -nodisp -autoexit -loglevel quiet "$mp3_file" &
+        ffplay -nodisp -autoexit -loglevel quiet "$mp3_file"
     else
         echo "Warning: No MP3 player found. Install mpv, mpg123, or ffplay"
         system_sound
     fi
 }
 
-# Original system sound function
+# Original system sound function (synchronously - waits for completion)
 system_sound() {
     echo -e "\a" 2>/dev/null
     if command -v speaker-test &>/dev/null; then
-        speaker-test -t sine -f 1000 -l 1 &>/dev/null &
+        # Removed '&' so the beep finishes before continuing
+        speaker-test -t sine -f 1000 -l 1 &>/dev/null
     fi
 }
 
@@ -124,16 +129,13 @@ while true; do
     # Desktop notification
     notify-send -u critical "Timer" "Alert #${COUNT}: ${INTERVAL} minutes have passed"
     
-    # If using directory, show which file was selected
-    if [ -d "$AUDIO_PATH" ]; then
-        random_mp3=$(get_random_mp3 "$AUDIO_PATH")
-        if [ -n "$random_mp3" ]; then
-            echo "  Playing: $(basename "$random_mp3")"
-        fi
-    fi
-    
-    # Audio alert
+    # Play audio and capture which file was played (if any)
     play_audio
+    
+    # If a file was played, show its name (now correctly matches)
+    if [ -n "$SELECTED_AUDIO" ]; then
+        echo "  Playing: $(basename "$SELECTED_AUDIO")"
+    fi
     
     ((COUNT++))
 done
