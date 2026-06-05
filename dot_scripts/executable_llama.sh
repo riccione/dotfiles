@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LLAMA_DIR=~/bin/llama.cpp/build/bin
+LLAMA_DIR=~/bin/llama.cpp/
 MODEL_DIR=~/Documents/llm/models
 
 # Collect all .gguf files
