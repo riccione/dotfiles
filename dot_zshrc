@@ -142,7 +142,7 @@ alias imv='imv-wayland'
 alias gss='git status'
 alias gsl='git log --all --graph --decorate --oneline'
 # ----- bin
-alias godot='~/bin/Godot_v4.3-stable_linux.x86_64'
+alias godot='~/bin/godot/godot'
 alias ultimaker='~/bin/UltiMaker-Cura-5.7.2-linux-X64.AppImage'
 alias conan='~/bin/conan/conan'
 alias upx='~/bin/upx/upx'
@@ -173,3 +173,16 @@ alias timer20='~/.scripts/timer.sh 20 ~/Music/'
 
 # opencode
 export PATH=/home/zero/.opencode/bin:$PATH
+
+# Android SDK
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+# JAVA SDK
+export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
+export PATH=$JAVA_HOME/bin:$PATH
+# golangci-lint
+export PATH=$PATH:$(go env GOPATH)/bin
