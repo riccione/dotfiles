@@ -170,6 +170,7 @@ wifi-connect() {
 }
 alias chromium='chromium --disable-gpu'
 alias timer20='~/.scripts/timer.sh 20 ~/Music/'
+alias obsidian='~/bin/Obsidian-1.12.7.AppImage'
 
 # opencode
 export PATH=/home/zero/.opencode/bin:$PATH
