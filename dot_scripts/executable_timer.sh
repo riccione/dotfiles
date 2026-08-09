@@ -10,35 +10,32 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-# Validate interval is a number
-if ! [[ "$1" =~ ^[0-9]+$ ]]; then
-    echo "Error: '$1' is not a valid number"
+# Validate interval is a positive number greater than 0
+if ! [[ "$1" =~ ^[1-9][0-9]*$ ]]; then
+    echo "Error: '$1' is not a valid positive integer"
     exit 1
 fi
 
 INTERVAL=$1
-SECONDS=$((INTERVAL * 60))
 AUDIO_PATH="$2"
 
 # Function to get a random MP3 from directory
 get_random_mp3() {
     local dir="$1"
     
-    # Find all mp3 files (case insensitive)
-    mapfile -t mp3_files < <(find "$dir" -type f \( -iname "*.mp3" -o -iname "*.MP3" \) 2>/dev/null)
+    # Find all mp3 files (-iname is case-insensitive)
+    mapfile -t mp3_files < <(find "$dir" -type f -iname "*.mp3" 2>/dev/null)
     
     if [ ${#mp3_files[@]} -eq 0 ]; then
         echo ""
         return 1
     fi
     
-    # Pick random file
     local random_index=$((RANDOM % ${#mp3_files[@]}))
     echo "${mp3_files[$random_index]}"
 }
 
 # Function to play audio (synchronously - waits for completion)
-# Returns the path of the file played (if any) via global variable SELECTED_AUDIO
 play_audio() {
     SELECTED_AUDIO=""
     
@@ -50,10 +47,12 @@ play_audio() {
     
     # Check if path is a directory
     if [ -d "$AUDIO_PATH" ]; then
-        local random_mp3=$(get_random_mp3 "$AUDIO_PATH")
+        local random_mp3
+        random_mp3=$(get_random_mp3 "$AUDIO_PATH")
         
         if [ -n "$random_mp3" ]; then
             SELECTED_AUDIO="$random_mp3"
+            echo "   Playing: $(basename "$SELECTED_AUDIO")"
             play_mp3 "$random_mp3"
         else
             echo "Warning: No MP3 files found in directory '$AUDIO_PATH'"
@@ -62,6 +61,7 @@ play_audio() {
     # Check if path is a file
     elif [ -f "$AUDIO_PATH" ]; then
         SELECTED_AUDIO="$AUDIO_PATH"
+        echo "   Playing: $(basename "$SELECTED_AUDIO")"
         play_mp3 "$AUDIO_PATH"
     else
         echo "Warning: '$AUDIO_PATH' is not a valid file or directory"
@@ -69,12 +69,10 @@ play_audio() {
     fi
 }
 
-# Function to play MP3 file (synchronously - waits for completion)
+# Function to play MP3 file
 play_mp3() {
     local mp3_file="$1"
     
-    # Try different players (in order of preference)
-    # NOTE: Removed '&' so the script waits for playback to finish
     if command -v mpv &>/dev/null; then
         mpv --no-video --really-quiet "$mp3_file"
     elif command -v mpg123 &>/dev/null; then
@@ -87,11 +85,10 @@ play_mp3() {
     fi
 }
 
-# Original system sound function (synchronously - waits for completion)
+# Fallback system sound
 system_sound() {
     echo -e "\a" 2>/dev/null
     if command -v speaker-test &>/dev/null; then
-        # Removed '&' so the beep finishes before continuing
         speaker-test -t sine -f 1000 -l 1 &>/dev/null
     fi
 }
@@ -102,7 +99,7 @@ echo "Timer started - Alert every ${INTERVAL} minutes"
 if [ -z "$AUDIO_PATH" ]; then
     echo "Audio: System beep"
 elif [ -d "$AUDIO_PATH" ]; then
-    mp3_count=$(find "$AUDIO_PATH" -type f -iname "*.mp3" 2>/dev/null | wc -l)
+    mp3_count=$(find "$AUDIO_PATH" -type f -iname "*.mp3" 2>/dev/null | wc -l | tr -d ' ')
     echo "Audio: Random MP3 from directory '$AUDIO_PATH' ($mp3_count files)"
 elif [ -f "$AUDIO_PATH" ]; then
     echo "Audio: MP3 file '$(basename "$AUDIO_PATH")'"
@@ -116,26 +113,23 @@ COUNT=1
 while true; do
     # Countdown from INTERVAL to 1 minute
     for (( mins_left = INTERVAL; mins_left > 0; mins_left-- )); do
-        printf "\rNext alert in: %d minute(s)" $mins_left
+        printf "\rNext alert in: %d minute(s) " $mins_left
         sleep 60
     done
     
-    # Clear the line
+    # Clear line
     printf "\r%*s\r" 50 ""
     
-    # Plain text output
+    # Text alert
     echo "[$(date '+%H:%M:%S')] Alert #${COUNT}: ${INTERVAL} minutes have passed"
     
-    # Desktop notification
-    notify-send -u critical "Timer" "Alert #${COUNT}: ${INTERVAL} minutes have passed"
-    
-    # Play audio and capture which file was played (if any)
-    play_audio
-    
-    # If a file was played, show its name (now correctly matches)
-    if [ -n "$SELECTED_AUDIO" ]; then
-        echo "  Playing: $(basename "$SELECTED_AUDIO")"
+    # Desktop notification (if installed)
+    if command -v notify-send &>/dev/null; then
+        notify-send -u critical "Timer" "Alert #${COUNT}: ${INTERVAL} minutes have passed"
     fi
+    
+    # Play audio (announces track before starting)
+    play_audio
     
     ((COUNT++))
 done
